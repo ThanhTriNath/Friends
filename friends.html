@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Friends - L'univers de la série culte</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Pacifico&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Montserrat', sans-serif;
+      background: linear-gradient(135deg, #ffd89b, #19547b 100%);
+      color: #222;
+    }
+    header {
+      background: #22223b;
+      color: #f2e9e4;
+      padding: 40px 0 30px 0;
+      text-align: center;
+      position: relative;
+    }
+    header h1 {
+      font-family: 'Pacifico', cursive;
+      font-size: 3em;
+      letter-spacing: 0.1em;
+      margin: 0;
+    }
+    /* Style Monica's Frame in header */
+    .monica-frame {
+      display: inline-block;
+      margin-top: 24px;
+      padding: 22px 38px;
+      background: #ffe066;
+      border: 8px solid #c77d0a;
+      border-radius: 24px 60px 24px 60px/40px 24px 40px 24px;
+      color: #22223b;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1.25em;
+      box-shadow: 0 4px 22px rgba(0,0,0,0.15);
+      max-width: 90vw;
+      text-align: center;
+      line-height: 1.6em;
+    }
+    /* Mega menu déroulant */
+    nav {
+      background: #4a4e69;
+      box-shadow: 0 2px 10px rgba(0,0,0,.1);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .menu {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 0;
+      list-style: none;
+      margin: 0;
+    }
+    .menu > li {
+      position: relative;
+    }
+    .menu > li > a {
+      display: block;
+      padding: 18px 26px;
+      color: #f2e9e4;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 1.1em;
+      transition: background 0.2s;
+      cursor: pointer;
+    }
+    .menu > li:hover > a, .menu > li:focus-within > a {
+      background: #9a8c98;
+      color: #22223b;
+    }
+    .dropdown {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background: #9a8c98;
+      min-width: 220px;
+      box-shadow: 0 4px 8px rgba(0,0,0,.12);
+      z-index: 200;
+      border-radius: 0 0 10px 10px;
+      animation: fadeIn 0.2s;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-10px);}
+      to { opacity: 1; transform: translateY(0);}
+    }
+    .dropdown li a {
+      padding: 16px 24px;
+      color: #22223b;
+      display: block;
+      text-decoration: none;
+      font-size: 1em;
+      transition: background 0.15s;
+    }
+    .dropdown li a:hover, .dropdown li a:focus {
+      background: #ffe066;
+      color: #c77d0a;
+    }
+    .menu > li:hover .dropdown,
+    .menu > li:focus-within .dropdown {
+      display: block;
+    }
+    /* Sous-menu déroulant */
+    .dropdown li {
+      position: relative;
+    }
+    .dropdown .dropdown {
+      left: 100%;
+      top: 0;
+      display: none;
+      min-width: 220px;
+      border-radius: 10px;
+    }
+    .dropdown li:hover > .dropdown,
+    .dropdown li:focus-within > .dropdown {
+      display: block;
+    }
+    /* Responsive */
+    @media (max-width: 900px) {
+      .menu {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .menu > li {
+        width: 100%;
+      }
+      .menu > li > a {
+        width: 100%;
+        padding: 16px 10vw;
+        font-size: 1em;
+      }
+      .dropdown, .dropdown .dropdown {
+        min-width: 90vw;
+        left: 0;
+        box-shadow: 0 4px 8px rgba(0,0,0,.14);
+      }
+    }
+    section {
+      max-width: 1000px;
+      margin: 60px auto;
+      background: rgba(255,255,255,0.97);
+      padding: 40px 40px 30px 40px;
+      border-radius: 18px;
+      box-shadow: 0 6px 32px rgba(50, 50, 93, 0.22);
+      margin-bottom: 50px;
+    }
+    section h2 {
+      color: #19547b;
+      font-size: 2.2em;
+      margin-top: 0;
+      margin-bottom: 18px;
+      letter-spacing: 0.04em;
+    }
+    .character-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 24px;
+      margin-top: 30px;
+    }
+    .character-card {
+      flex: 1 1 260px;
+      background: #f2e9e4;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(50,50,93,0.10);
+      padding: 22px;
+      text-align: center;
+      transition: transform 0.2s;
+      position: relative;
+    }
+    .character-card:hover {
+      transform: translateY(-6px) scale(1.03);
+      box-shadow: 0 8px 24px rgba(25,84,123,0.14);
+    }
+    .character-card img {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 16px;
+      border: 3px solid #19547b;
+    }
+    .character-card h3 {
+      margin: 0 0 6px 0;
+      color: #4a4e69;
+      font-size: 1.3em;
+    }
+    .character-card p {
+      margin: 0;
+      color: #22223b;
+      font-size: 1em;
+      text-align: left;
+    }
+    .character-details {
+      text-align: left;
+      margin-top: 18px;
+      font-size: 0.98em;
+      color: #444;
+    }
+    .bio-title {
+      font-weight: bold;
+      color: #c77d0a;
+      margin-bottom: 2px;
+      margin-top: 12px;
+      display: block;
+    }
+    .timeline {
+      margin: 18px 0 0 0;
+      padding: 0 0 0 20px;
+      font-size: 0.97em;
+      color: #444;
+    }
+    .timeline li {
+      margin-bottom: 6px;
+    }
+    .quote {
+      font-style: italic;
+      color: #19547b;
+      margin-top: 8px;
+      display: block;
+    }
+    @media (max-width: 700px) {
+      section {
+        padding: 24px 10px;
+      }
+      .character-grid {
+        flex-direction: column;
+      }
+      .monica-frame {
+        padding: 12px 6vw;
+        font-size: 1em;
+      }
+    }
+    footer {
+      background: #22223b;
+      color: #f2e9e4;
+      text-align: center;
+      padding: 24px 0 18px 0;
+      letter-spacing: 0.03em;
+      font-size: 1.04em;
+    }
+    a {
+      color: #19547b;
+      text-decoration: underline;
+    }
+     .logo-friends {
+        display: block;
+        margin: 0 auto;
+        max-width: 330px;
+        width: 90vw;
+        height: auto;
+     }
+  </style>
+</head>
+<body>
+  <header>
+    <img src="Friends_logo.svg.png" alt="Friends logo" class="logo-friends">
+    <div class="monica-frame">
+      La série culte qui a marqué plusieurs générations !<br>
+      Plongez dans l'univers hilarant et attachant de Rachel, Ross, Monica, Chandler, Joey et Phoebe.
+    </div>
+  </header>
+  <nav>
+    <ul class="menu">
+      <li tabindex="0"><a href="#persos">Personnages</a>
+        <ul class="dropdown">
+          <li><a href="#rachel">Rachel Green</a></li>
+          <li><a href="#ross">Ross Geller</a></li>
+          <li><a href="#monica">Monica Geller</a>
+            <ul class="dropdown">
+              <li><a href="#monica-detail">Biographie détaillée</a></li>
+              <li><a href="#monica-evol">Évolution & Relations</a></li>
+            </ul>
+          </li>
+          <li><a href="#chandler">Chandler Bing</a></li>
+          <li><a href="#joey">Joey Tribbiani</a></li>
+          <li><a href="#phoebe">Phoebe Buffay</a></li>
+        </ul>
+      </li>
+      <li tabindex="0"><a href="#saisons">Saisons</a>
+        <ul class="dropdown">
+          <li><a href="#saison1">Saison 1</a></li>
+          <li><a href="#saison2">Saison 2</a></li>
+          <li><a href="#saison3">Saison 3</a></li>
+          <li><a href="#saison4">Saison 4</a></li>
+          <li><a href="#saison5">Saison 5</a></li>
+          <li><a href="#saison6">Saison 6</a></li>
+          <li><a href="#saison7">Saison 7</a></li>
+          <li><a href="#saison8">Saison 8</a></li>
+          <li><a href="#saison9">Saison 9</a></li>
+          <li><a href="#saison10">Saison 10</a></li>
+        </ul>
+      </li>
+      <li tabindex="0"><a href="#anecdotes">Anecdotes & Fun Facts</a></li>
+      <li tabindex="0"><a href="#impact">Impact et Héritage</a></li>
+    </ul>
+  </nav>
+
+  <section id="persos">
+    <h2>Les Personnages Principaux</h2>
+    <div class="character-grid">
+      <div class="character-card" id="rachel">
+        <img src="Aniston.jpg" alt="Rachel Green">
+        <h3>Rachel Green</h3>
+        <p>
+          <span class="bio-title">Portrait :</span>
+          Interprétée par Jennifer Aniston, Rachel démarre la série en fuyant son propre mariage pour rejoindre Monica, son amie d’enfance. Elle évolue de "fille à papa" insouciante, dépendante de ses parents, à une femme indépendante et brillante dans le monde de la mode. 
+          <br><span class="bio-title">Traits :</span>
+          Émotive, drôle, parfois superficielle, elle est aussi déterminée et attachante. 
+          <br><span class="bio-title">Évolution :</span>
+          Sa relation avec Ross rythme la série ("We were on a break!"). Mère célibataire, elle choisit de concilier carrière et vie de famille.
+          <span class="quote">"It’s like all my life everyone has always told me, ‘You’re a shoe! You’re a shoe! You’re a shoe!’"</span>
+          <ul class="timeline">
+            <li>S1 : Fuit son mariage, s’installe avec Monica, travaille comme serveuse.</li>
+            <li>S3 : Débute dans la mode, histoire d’amour avec Ross.</li>
+            <li>S5-S10 : Carrière chez Ralph Lauren, grossesse, décision de rester avec Ross.</li>
+          </ul>
+        </p>
+      </div>
+      <div class="character-card" id="ross">
+        <img src="Ross.jpg" alt="Ross Geller">
+        <h3>Ross Geller</h3>
+        <p>
+          <span class="bio-title">Portrait :</span>
+          David Schwimmer joue Ross, paléontologue passionné, frère de Monica. Sa maladresse et sa loyauté font de lui un personnage central.
+          <br><span class="bio-title">Traits :</span>
+          Sérieux, gaffeur, intelligent, il a un penchant pour les situations embarrassantes. 
+          <br><span class="bio-title">Évolution :</span>
+          Trois mariages ratés, une relation complexe avec Rachel, et beaucoup de "Unagi".
+          <span class="quote">"We were on a break!"</span>
+          <ul class="timeline">
+            <li>S1 : Divorce de Carol, apprend la grossesse de son ex.</li>
+            <li>S2-5 : Idylle avec Rachel, mariage à Londres (avec erreur de prénom !).</li>
+            <li>S6-10 : Père de deux enfants, se remet avec Rachel.</li>
+          </ul>
+        </p>
+      </div>
+      <div class="character-card" id="monica">
+        <img src="Monica.jpg" alt="Monica Geller">
+        <h3>Monica Geller</h3>
+        <p>
+          <span class="bio-title">Portrait :</span>
+          Courteney Cox incarne Monica, cheffe cuisinière ambitieuse, sœur de Ross, et véritable "maman" du groupe. 
+          <br><span class="bio-title">Traits :</span>
+          Organisée à l’extrême (maniaque du ménage!), compétitive, généreuse et pleine d’humour.
+          <br><span class="bio-title">Évolution :</span>
+          Après de nombreux déboires amoureux, elle trouve le bonheur avec Chandler. Leur histoire d’amour, d’abord secrète, devient l’un des plus beaux arcs narratifs de la série.
+          <span class="quote">"Welcome to the real world. It sucks. You’re gonna love it!"</span>
+          <ul class="timeline">
+            <li>S1 : Célibataire, recherche l’amour, héberge Rachel.</li>
+            <li>S4-5 : Débute sa romance avec Chandler à Londres.</li>
+            <li>S7 : Mariage avec Chandler, parcours vers l’adoption.</li>
+            <li>S10 : Devient maman de jumeaux.</li>
+          </ul>
+          <div class="character-details" id="monica-detail">
+            <strong>Biographie détaillée :</strong>
+            <br>Enfance difficile à cause de son surpoids, jalousie envers Ross ("l’enfant préféré"). Persévérante, elle s’affirme comme une cuisinière douée, travaille dans plusieurs restaurants new-yorkais et devient chef de cuisine.
+            <br><span class="bio-title" id="monica-evol">Relations :</span> 
+            Très proche de Rachel (sa meilleure amie historique), Monica est le pilier du groupe. Sa relation avec Chandler, d’abord inattendue, évolue d’une aventure secrète à un mariage solide et aimant. Son désir de maternité est un fil rouge poignant, menant à l’adoption de jumeaux.
+            <br><span class="bio-title">Anecdote :</span> 
+            L’appartement de Monica, au cœur de la série, est LE point de rendez-vous du groupe. Son fameux cadre doré sur la porte violette est un symbole de Friends.
+          </div>
+        </p>
+      </div>
+      <div class="character-card" id="chandler">
+        <img src="Chandler.jpg" alt="Chandler Bing">
+        <h3>Chandler Bing</h3>
+        <p>
+          <span class="bio-title">Portrait :</span>
+          Matthew Perry donne vie à Chandler, maître du sarcasme et du commentaire gênant.
+          <br><span class="bio-title">Traits :</span>
+          Drôle, cynique, anxieux, loyal. Il utilise l’humour pour masquer ses blessures d’enfance (parents divorcés, père drag-queen).
+          <br><span class="bio-title">Évolution :</span>
+          D’abord célibataire endurci, il tombe amoureux de Monica, quitte son travail de bureau pour s’épanouir dans la publicité.
+          <span class="quote">"Could I BE any more...?"</span>
+          <ul class="timeline">
+            <li>S1 : Colocataire de Joey, enchaîne les histoires courtes.</li>
+            <li>S4-5 : Commence une relation avec Monica à Londres.</li>
+            <li>S7-10 : Mariage, adoption, nouvelle carrière.</li>
+          </ul>
+        </p>
+      </div>
+      <div class="character-card" id="joey">
+        <img src="Joey.jpg" alt="Joey Tribbiani">
+        <h3>Joey Tribbiani</h3>
+        <p>
+          <span class="bio-title">Portrait :</span>
+          Matt LeBlanc incarne Joey, acteur en galère mais fidèle ami.
+          <br><span class="bio-title">Traits :</span>
+          Généreux, naïf, bon vivant, séducteur maladroit, passionné de nourriture (surtout les sandwichs !).
+          <br><span class="bio-title">Évolution :</span>
+          Progresse dans sa carrière d’acteur ("Les Jours de notre vie"), reste loyal à ses amis, développe une profonde amitié avec Rachel.
+          <span class="quote">"How you doin'?"</span>
+          <ul class="timeline">
+            <li>S1 : Acteur débutant, rencontre le succès grâce à un soap opera.</li>
+            <li>S5-7 : Son amitié avec Monica et Chandler s’approfondit.</li>
+            <li>S8 : Développe des sentiments pour Rachel.</li>
+          </ul>
+        </p>
+      </div>
+      <div class="character-card" id="phoebe">
+        <img src="Phoebe.jpg" alt="Phoebe Buffay">
+        <h3>Pheobe Buffay</h3>
+        <p>
+          <span class="bio-title">Portrait :</span>
+          Lisa Kudrow joue Phoebe, la plus originale et imprévisible du groupe.
+          <br><span class="bio-title">Traits :</span>
+          Spirituelle, excentrique, optimiste, dotée d’un humour absurde et d’un grand cœur.
+          <br><span class="bio-title">Évolution :</span>
+          Surmonte une enfance difficile, s’épanouit dans la musique ("Smelly Cat"), trouve l’amour avec Mike Hannigan.
+          <span class="quote">"Smelly Cat, Smelly Cat, what are they feeding you?"</span>
+          <ul class="timeline">
+            <li>S1 : Masseuse, musicienne au Central Perk.</li>
+            <li>S5 : Mère porteuse pour son frère Frank.</li>
+            <li>S9-10 : Mariage avec Mike, trouve enfin la stabilité.</li>
+          </ul>
+        </p>
+      </div>
+    </div>
+    <p style="margin-top:40px;">
+      <b>Autres personnages marquants :</b> Gunther (le serveur amoureux de Rachel), Janice ("Oh. My. God!"), Mike Hannigan (mari de Phoebe), Carol et Susan (l’ex-femme et la compagne de Ross), Emily, Richard Burke, Frank Buffay Jr, Estelle, et bien d’autres !
+    </p>
+  </section>
+
+  <section id="saisons">
+    <h2>Les Saisons - De 1994 à 2004</h2>
+    <div id="saison1">
+      <h3>Saison 1 : Les Débuts (1994-1995)</h3>
+      <p>
+        Introduction des personnages, Rachel fuit son mariage, Monica l’accueille. Ross apprend qu’il va être père, Chandler et Joey partagent leur appartement, Phoebe joue de la guitare au Central Perk. Premières tensions amoureuses, gags sur la vie new-yorkaise.
+      </p>
+    </div>
+    <div id="saison2">
+      <h3>Saison 2 : Nouvelles aventures</h3>
+      <p>
+        Ross revient de Chine avec Julie, créant une rivalité amoureuse avec Rachel. Monica sort avec Richard, un ami de la famille. Joey décroche un rôle dans "Les Jours de notre vie". Premiers véritables rapprochements amoureux et gags mémorables ("lobster" !).
+      </p>
+    </div>
+    <div id="saison3">
+      <h3>Saison 3 : Les amours contrariées</h3>
+      <p>
+        Ross devient jaloux de Mark, collègue de Rachel, ce qui mène à la fameuse pause. Monica ouvre son propre restaurant. Joey tente de percer au cinéma. Chandler tente d’arrêter de fumer.
+      </p>
+    </div>
+    <div id="saison4">
+      <h3>Saison 4 : Péripéties à Londres</h3>
+      <p>
+        Ross se fiance avec Emily. Monica et Chandler débutent leur romance secrète. Joey part à Londres, Phoebe tombe enceinte comme mère porteuse pour son frère.
+      </p>
+    </div>
+    <div id="saison5">
+      <h3>Saison 5 : L’apogée de l’humour</h3>
+      <p>
+        Après le mariage raté de Ross, Monica et Chandler cachent leur relation. Joey découvre l’amour fraternel, Phoebe devient mère porteuse pour son frère. Saison riche en épisodes cultes ("Celui qui a découvert la relation").
+      </p>
+    </div>
+    <div id="saison6">
+      <h3>Saison 6 : Nouveaux départs</h3>
+      <p>
+        Ross et Rachel se marient accidentellement à Las Vegas. Monica et Chandler emménagent ensemble. Joey cherche un nouvel agent.
+      </p>
+    </div>
+    <div id="saison7">
+      <h3>Saison 7 : Mariages et préparatifs</h3>
+      <p>
+        Monica et Chandler préparent leur mariage. Rachel et Phoebe vivent ensemble. Joey obtient un rôle principal dans une série dérivée.
+      </p>
+    </div>
+    <div id="saison8">
+      <h3>Saison 8 : Grossesse surprise</h3>
+      <p>
+        Rachel attend un bébé de Ross. Joey tombe amoureux de Rachel mais renonce. Monica et Chandler essaient d’avoir un enfant.
+      </p>
+    </div>
+    <div id="saison9">
+      <h3>Saison 9 : Changements en vue</h3>
+      <p>
+        Naissance d’Emma, la fille de Rachel et Ross. Chandler change de carrière, Monica et Chandler entament un parcours d’adoption.
+      </p>
+    </div>
+    <div id="saison10">
+      <h3>Saison 10 : La Fin d’une Ère (2003-2004)</h3>
+      <p>
+        Derniers épisodes pleins d’émotion. Ross et Rachel se retrouvent, Chandler et Monica adoptent des jumeaux, Phoebe se marie. Les adieux sont touchants, la remise des clés de l’appartement marque la fin d’une époque.
+      </p>
+    </div>
+    <p>
+      <b>10 saisons, 236 épisodes, et des millions de fans à travers le monde.</b> Chaque saison a apporté son lot de rires, de surprises, et d’émotions. Les intrigues croisées, les gags récurrents et la complicité du casting ont rendu Friends intemporel.
+    </p>
+  </section>
+
+  <section id="anecdotes">
+    <h2>Anecdotes & Fun Facts</h2>
+    <ul>
+      <li><b>Le Central Perk :</b> Le café fictif est devenu emblématique. Des répliques existent à travers le monde.</li>
+      <li><b>Salaires records :</b> Dès la saison 10, chaque acteur principal touchait 1 million de dollars par épisode.</li>
+      <li><b>Rôles presque différents :</b> Courteney Cox devait jouer Rachel, Jennifer Aniston Monica !</li>
+      <li><b>Smelly Cat :</b> La chanson de Phoebe reprise par des stars comme Taylor Swift.</li>
+      <li><b>Guests stars :</b> Brad Pitt, Bruce Willis, Julia Roberts, Robin Williams, George Clooney… et bien d’autres !</li>
+      <li><b>Le dernier épisode :</b> Plus de 52 millions de téléspectateurs aux États-Unis.</li>
+      <li><b>Le cadre de Monica :</b> Ce cadre doré autour de l'œil-de-bœuf sur la porte violette est devenu un symbole pop-culturel.</li>
+      <li><b>Expressions cultes :</b> "Unagi", "Pivot!", "How you doin'?" ou "Oh. My. God!" sont entrées dans la légende.</li>
+      <li><b>Spin-off :</b> Joey a eu sa propre série, sans rencontrer le même succès que Friends.</li>
+    </ul>
+  </section>
+
+  <section id="impact">
+    <h2>Impact et Héritage</h2>
+    <p>
+      Plus qu’une simple sitcom, <b>Friends</b> a révolutionné la télévision. Elle a influencé la mode, le langage ("friendzone", "How you doin'?", "Unagi"), et même la décoration d’intérieur (le canapé du Central Perk !). Encore aujourd’hui, la série séduit de nouvelles générations grâce au streaming.
+    </p>
+    <p>
+      <b>Son héritage :</b> Des spin-offs, des parodies, un <b>retour événement</b> en 2021, et surtout, une place éternelle dans le cœur des fans. En 2021, le "Friends: The Reunion" a rassemblé les six acteurs principaux pour une émission spéciale, preuve de l’attachement du public à cette série.
+    </p>
+    <p>
+      Friends continue d’inspirer des séries modernes, des publicités, et des tendances mode et déco. Le Central Perk, les costumes d’Halloween, les mèmes internet en sont la preuve vivante.
+    </p>
+    <p style="text-align:center;">
+      <em>“I'll be there for you...”</em>
+    </p>
+  </section>
+
+  <footer>
+    &copy; 2025 - Page hommage à <b>Friends</b> | Par un(e) fan, pour les fans.<br>
+    <span style="font-size:0.9em;">Images : Wikipedia | Série créée par David Crane & Marta Kauffman</span>
+      <div style="font-size:0.95em; color:#555; margin-top:20px;">
+  Ce site est un hommage de fan à la série Friends.<br>
+  "Friends" et tous les logos/images associés sont la propriété de Warner Bros. et NBC. Ce site n’est pas officiel et n’a aucun but commercial.
+</div>
+  </footer>
+</body>
+</html>
