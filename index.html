@@ -5,50 +5,156 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Friends - L'univers de la série culte</title>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Pacifico&display=swap" rel="stylesheet">
-   <link rel="icon" href="friends_logo.svg" type="image/jpeg">
   <style>
+    :root {
+      --main-bg: linear-gradient(135deg,#ffd89b 0%, #19547b 100%);
+      --header-bg: #22223b;
+      --accent: #ffe066;
+      --accent-dark: #c77d0a;
+      --menu-bg: #4a4e69;
+      --menu-hover: #9a8c98;
+      --card-bg: #f2e9e4;
+      --card-shadow: 0 2px 12px rgba(30,50,93,.15);
+      --card-hover-shadow: 0 8px 32px rgba(25,84,123,0.17);
+      --card-radius: 18px;
+      --section-bg: rgba(255,255,255,0.98);
+      --gold: #ffe066;
+      --blue: #19547b;
+      --purple: #4a4e69;
+      --yellow: #ffe066;
+      --orange: #c77d0a;
+      --transition: 0.25s cubic-bezier(.45,.05,.55,.95);
+    }
+    html, body {
+      min-height: 100%;
+      background: var(--main-bg);
+      color: #222;
+      font-family: 'Montserrat', sans-serif;
+      scroll-behavior: smooth;
+    }
     body {
       margin: 0;
-      font-family: 'Montserrat', sans-serif;
-      background: linear-gradient(135deg, #ffd89b, #19547b 100%);
-      color: #222;
-    }
-    header {
-      background: #22223b;
-      color: #f2e9e4;
-      padding: 40px 0 30px 0;
-      text-align: center;
+      padding: 0;
       position: relative;
     }
-    header h1 {
-      font-family: 'Pacifico', cursive;
-      font-size: 3em;
-      letter-spacing: 0.1em;
-      margin: 0;
+    header {
+      background: var(--header-bg);
+      color: #f2e9e4;
+      padding: 0 0 40px 0;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
     }
-    /* Style Monica's Frame in header */
+    .header-bg-bubble {
+      position: absolute;
+      z-index: 1;
+      width: 180px; height: 180px;
+      background: var(--accent);
+      border-radius: 50%;
+      filter: blur(16px);
+      opacity: .16;
+      top: -40px; left: -50px;
+      animation: float 7s infinite alternate;
+    }
+    .header-bg-bubble2 {
+      position: absolute;
+      z-index: 1;
+      width: 120px; height: 120px;
+      background: var(--gold);
+      border-radius: 50%;
+      filter: blur(10px);
+      opacity: .18;
+      bottom: 10px; right: 35px;
+      animation: float2 9s infinite alternate;
+    }
+    @keyframes float {
+      from { transform: translateY(0); }
+      to   { transform: translateY(40px);}
+    }
+    @keyframes float2 {
+      from { transform: translateY(0);}
+      to   { transform: translateY(-30px);}
+    }
+    .logo-friends {
+      display: block;
+      margin: 0 auto 18px auto;
+      max-width: 330px;
+      width: 85vw;
+      height: auto;
+      position: relative;
+      z-index: 2;
+      filter: drop-shadow(0 2px 20px rgba(20,30,100,.15));
+      animation: fadeinlogo 1.2s;
+    }
+    @keyframes fadeinlogo {
+      from { opacity: 0; transform: scale(.9);}
+      to { opacity: 1; transform: scale(1);}
+    }
     .monica-frame {
       display: inline-block;
-      margin-top: 24px;
-      padding: 22px 38px;
-      background: #ffe066;
-      border: 8px solid #c77d0a;
+      margin-top: 18px;
+      padding: 20px 44px;
+      background: var(--gold);
+      border: 8px solid var(--orange);
       border-radius: 24px 60px 24px 60px/40px 24px 40px 24px;
-      color: #22223b;
       font-family: 'Montserrat', sans-serif;
       font-size: 1.25em;
-      box-shadow: 0 4px 22px rgba(0,0,0,0.15);
-      max-width: 90vw;
+      color: var(--header-bg);
+      box-shadow: 0 4px 22px rgba(0,0,0,0.10);
+      max-width: 94vw;
       text-align: center;
-      line-height: 1.6em;
+      line-height: 1.7em;
+      position: relative;
+      z-index: 2;
+      animation: monicaframein 1.3s;
     }
-    /* Mega menu déroulant */
+    @keyframes monicaframein {
+      from { opacity: 0; transform: translateY(24px);}
+      to { opacity: 1; transform: translateY(0);}
+    }
+    /* Hamburger Menu */
+    .hamburger {
+      display: none;
+      cursor: pointer;
+      background: none;
+      border: none;
+      outline: none;
+      position: absolute;
+      top: 26px;
+      right: 30px;
+      z-index: 302;
+      width: 42px;
+      height: 42px;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+    .hamburger span {
+      display: block;
+      width: 32px;
+      height: 4px;
+      margin: 5px 0;
+      background: var(--gold);
+      border-radius: 3px;
+      transition: all .4s cubic-bezier(.53,.19,.32,1.44);
+    }
+    .hamburger.active span:nth-child(1) {
+      transform: rotate(45deg) translateY(8px);
+    }
+    .hamburger.active span:nth-child(2) {
+      opacity: 0;
+    }
+    .hamburger.active span:nth-child(3) {
+      transform: rotate(-45deg) translateY(-8px);
+    }
     nav {
-      background: #4a4e69;
-      box-shadow: 0 2px 10px rgba(0,0,0,.1);
+      background: var(--menu-bg);
+      box-shadow: 0 2px 10px rgba(0,0,0,.06);
       position: sticky;
       top: 0;
-      z-index: 100;
+      z-index: 300;
+      width: 100%;
+      transition: background var(--transition);
     }
     .menu {
       display: flex;
@@ -57,57 +163,62 @@
       padding: 0;
       list-style: none;
       margin: 0;
+      z-index: 301;
+      position: relative;
     }
     .menu > li {
       position: relative;
     }
     .menu > li > a {
       display: block;
-      padding: 18px 26px;
+      padding: 18px 28px;
       color: #f2e9e4;
       text-decoration: none;
       font-weight: bold;
       font-size: 1.1em;
-      transition: background 0.2s;
+      letter-spacing: 0.01em;
+      transition: background var(--transition), color var(--transition);
       cursor: pointer;
+      border-bottom: 2.5px solid transparent;
     }
     .menu > li:hover > a, .menu > li:focus-within > a {
-      background: #9a8c98;
-      color: #22223b;
+      background: var(--menu-hover);
+      color: var(--header-bg);
+      border-bottom: 2.5px solid var(--gold);
     }
     .dropdown {
       display: none;
       position: absolute;
       top: 100%;
       left: 0;
-      background: #9a8c98;
+      background: var(--menu-hover);
       min-width: 220px;
-      box-shadow: 0 4px 8px rgba(0,0,0,.12);
+      box-shadow: 0 4px 18px rgba(0,0,0,.09);
       z-index: 200;
       border-radius: 0 0 10px 10px;
-      animation: fadeIn 0.2s;
+      animation: fadeIn 0.25s;
     }
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(-10px);}
       to { opacity: 1; transform: translateY(0);}
     }
     .dropdown li a {
-      padding: 16px 24px;
-      color: #22223b;
+      padding: 16px 22px;
+      color: var(--header-bg);
       display: block;
       text-decoration: none;
       font-size: 1em;
-      transition: background 0.15s;
+      transition: background 0.17s, color 0.16s;
+      border-radius: 0;
     }
     .dropdown li a:hover, .dropdown li a:focus {
-      background: #ffe066;
-      color: #c77d0a;
+      background: var(--gold);
+      color: var(--orange);
     }
     .menu > li:hover .dropdown,
     .menu > li:focus-within .dropdown {
       display: block;
     }
-    /* Sous-menu déroulant */
     .dropdown li {
       position: relative;
     }
@@ -122,74 +233,115 @@
     .dropdown li:focus-within > .dropdown {
       display: block;
     }
-    /* Responsive */
+    /* Responsive Navigation */
     @media (max-width: 900px) {
+      .hamburger {
+        display: flex;
+      }
       .menu {
         flex-direction: column;
         align-items: stretch;
+        background: var(--menu-bg);
+        position: fixed;
+        top: 0; left: -100vw;
+        width: 82vw;
+        height: 100vh;
+        padding-top: 80px;
+        transition: left .37s cubic-bezier(.75,.09,.22,1.28);
+        box-shadow: 3px 0 30px rgba(20,20,40,.20);
+      }
+      .menu.open {
+        left: 0;
       }
       .menu > li {
         width: 100%;
       }
       .menu > li > a {
         width: 100%;
-        padding: 16px 10vw;
-        font-size: 1em;
+        padding: 16px 12vw;
+        font-size: 1.05em;
       }
       .dropdown, .dropdown .dropdown {
-        min-width: 90vw;
-        left: 0;
-        box-shadow: 0 4px 8px rgba(0,0,0,.14);
+        position: static;
+        min-width: unset;
+        width: 100%;
+        border-radius: 0 0 10px 10px;
+        background: var(--menu-hover);
+        box-shadow: none;
       }
     }
+    /* Sections */
     section {
-      max-width: 1000px;
+      max-width: 1100px;
       margin: 60px auto;
-      background: rgba(255,255,255,0.97);
-      padding: 40px 40px 30px 40px;
-      border-radius: 18px;
-      box-shadow: 0 6px 32px rgba(50, 50, 93, 0.22);
+      background: var(--section-bg);
+      padding: 46px 48px 34px 48px;
+      border-radius: var(--card-radius);
+      box-shadow: 0 6px 38px rgba(50, 50, 93, 0.13);
       margin-bottom: 50px;
+      position: relative;
+      z-index: 10;
+      animation: fadeinsection 1.1s;
+    }
+    @keyframes fadeinsection {
+      from { opacity: 0; transform: translateY(40px);}
+      to { opacity: 1; transform: translateY(0);}
     }
     section h2 {
-      color: #19547b;
-      font-size: 2.2em;
+      color: var(--blue);
+      font-size: 2.35em;
       margin-top: 0;
-      margin-bottom: 18px;
+      margin-bottom: 16px;
       letter-spacing: 0.04em;
+      text-shadow: 0 2px 12px #ffe06617;
+      font-family: 'Pacifico', cursive;
     }
     .character-grid {
       display: flex;
       flex-wrap: wrap;
-      gap: 24px;
-      margin-top: 30px;
+      gap: 28px;
+      margin-top: 38px;
+      justify-content: center;
     }
     .character-card {
-      flex: 1 1 260px;
-      background: #f2e9e4;
-      border-radius: 12px;
-      box-shadow: 0 2px 8px rgba(50,50,93,0.10);
-      padding: 22px;
+      flex: 1 1 270px;
+      min-width: 260px;
+      max-width: 340px;
+      background: var(--card-bg);
+      border-radius: var(--card-radius);
+      box-shadow: var(--card-shadow);
+      padding: 30px 18px 18px 18px;
       text-align: center;
-      transition: transform 0.2s;
+      transition: transform var(--transition), box-shadow var(--transition), border var(--transition);
       position: relative;
+      overflow: hidden;
+      border: 2.5px solid #fff;
     }
     .character-card:hover {
-      transform: translateY(-6px) scale(1.03);
-      box-shadow: 0 8px 24px rgba(25,84,123,0.14);
+      transform: translateY(-8px) scale(1.05) rotate(-1.1deg);
+      box-shadow: var(--card-hover-shadow);
+      border: 2.5px solid var(--gold);
+      z-index: 12;
+      background: linear-gradient(120deg,#fffde8 60%,#ffe06614 100%);
     }
     .character-card img {
-      width: 120px;
-      height: 120px;
+      width: 110px;
+      height: 110px;
       border-radius: 50%;
       object-fit: cover;
-      margin-bottom: 16px;
-      border: 3px solid #19547b;
+      margin-bottom: 14px;
+      border: 4px solid var(--blue);
+      box-shadow: 0 2px 12px #ffe06611;
+      transition: border .23s;
+      background: #fff8f1;
     }
     .character-card h3 {
       margin: 0 0 6px 0;
-      color: #4a4e69;
-      font-size: 1.3em;
+      color: var(--purple);
+      font-size: 1.28em;
+      letter-spacing: 0.02em;
+      font-family: 'Montserrat', sans-serif;
+      text-shadow: 0 1px 6px #ffe06611;
     }
     .character-card p {
       margin: 0;
@@ -199,19 +351,24 @@
     }
     .character-details {
       text-align: left;
-      margin-top: 18px;
-      font-size: 0.98em;
+      margin-top: 17px;
+      font-size: 0.99em;
       color: #444;
+      background: #fff9e7;
+      padding: 10px 13px;
+      border-radius: 11px;
+      margin-bottom: 6px;
+      box-shadow: 0 1px 5px #ffe06611;
     }
     .bio-title {
       font-weight: bold;
-      color: #c77d0a;
+      color: var(--orange);
       margin-bottom: 2px;
       margin-top: 12px;
       display: block;
     }
     .timeline {
-      margin: 18px 0 0 0;
+      margin: 17px 0 0 0;
       padding: 0 0 0 20px;
       font-size: 0.97em;
       color: #444;
@@ -221,53 +378,130 @@
     }
     .quote {
       font-style: italic;
-      color: #19547b;
+      color: var(--blue);
       margin-top: 8px;
       display: block;
+      font-size: 1.04em;
     }
     @media (max-width: 700px) {
       section {
-        padding: 24px 10px;
+        padding: 24px 6vw;
       }
       .character-grid {
         flex-direction: column;
       }
       .monica-frame {
-        padding: 12px 6vw;
-        font-size: 1em;
+        padding: 10px 4vw;
+        font-size: 1.05em;
+      }
+      .character-card {
+        max-width: 99vw;
       }
     }
+    /* Fun facts & Impact */
+    #anecdotes ul {
+      padding-left: 1.2em;
+      line-height: 1.9em;
+      font-size: 1.07em;
+    }
+    #anecdotes ul li::marker {
+      color: var(--gold);
+      font-size: 1.15em;
+    }
+    /* Footer */
     footer {
-      background: #22223b;
+      background: var(--header-bg);
       color: #f2e9e4;
       text-align: center;
-      padding: 24px 0 18px 0;
+      padding: 26px 0 18px 0;
       letter-spacing: 0.03em;
-      font-size: 1.04em;
+      font-size: 1.08em;
+      position: relative;
+      z-index: 12;
+      border-top: 5px solid var(--gold);
     }
     a {
-      color: #19547b;
+      color: var(--blue);
       text-decoration: underline;
+      font-weight: bold;
+      transition: color .16s;
     }
-     .logo-friends {
-        display: block;
-        margin: 0 auto;
-        max-width: 330px;
-        width: 90vw;
-        height: auto;
-     }
+    a:hover {
+      color: var(--orange);
+      text-decoration: underline wavy;
+    }
+    /* Scrollbar custom */
+    ::-webkit-scrollbar {
+      width: 10px; background: #e6e4e4;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: var(--gold); border-radius: 10px;
+    }
+    /* Up Arrow Button */
+    #scrollTopBtn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: fixed;
+      bottom: 38px;
+      right: 32px;
+      z-index: 999;
+      width: 54px;
+      height: 54px;
+      background: linear-gradient(135deg,#ffd89b 60%, #19547b 120%);
+      color: #fff;
+      border: none;
+      border-radius: 50%;
+      box-shadow: 0 4px 18px #19547b2d;
+      font-size: 2.1em;
+      cursor: pointer;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.28s, transform 0.21s;
+      transform: scale(0.92);
+      outline: none;
+      animation: upArrowIn 0.6s;
+    }
+    #scrollTopBtn.visible {
+      opacity: 0.98;
+      pointer-events: auto;
+      transform: scale(1.08);
+    }
+    #scrollTopBtn:hover {
+      background: linear-gradient(135deg,#ffe066 65%, #22223b 120%);
+      color: var(--blue);
+      transform: scale(1.13) translateY(-4px);
+      box-shadow: 0 7px 32px #19547b44;
+    }
+    @keyframes upArrowIn {
+      from {transform: scale(0.7);}
+      to {transform: scale(1);}
+    }
+    /* Small Devices */
+    @media (max-width: 480px) {
+      section { padding: 14px 2vw; }
+      .character-card { padding: 18px 3vw 13px 3vw;}
+      .monica-frame { font-size: 1em;}
+      .logo-friends { max-width: 80vw;}
+      #scrollTopBtn { right: 7vw; bottom: 16px; width: 43px; height:43px; font-size: 1.3em;}
+    }
   </style>
 </head>
 <body>
   <header>
+    <div class="header-bg-bubble"></div>
+    <div class="header-bg-bubble2"></div>
     <img src="Friends_logo.svg.png" alt="Friends logo" class="logo-friends">
+    <button class="hamburger" aria-label="Menu principal" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
     <div class="monica-frame">
       La série culte qui a marqué plusieurs générations !<br>
       Plongez dans l'univers hilarant et attachant de Rachel, Ross, Monica, Chandler, Joey et Phoebe.
     </div>
   </header>
   <nav>
-    <ul class="menu">
+    <ul class="menu" id="main-menu">
       <li tabindex="0"><a href="#persos">Personnages</a>
         <ul class="dropdown">
           <li><a href="#rachel">Rachel Green</a></li>
@@ -301,7 +535,6 @@
       <li tabindex="0"><a href="#impact">Impact et Héritage</a></li>
     </ul>
   </nav>
-
   <section id="persos">
     <h2>Les Personnages Principaux</h2>
     <div class="character-grid">
@@ -427,7 +660,6 @@
       <b>Autres personnages marquants :</b> Gunther (le serveur amoureux de Rachel), Janice ("Oh. My. God!"), Mike Hannigan (mari de Phoebe), Carol et Susan (l’ex-femme et la compagne de Ross), Emily, Richard Burke, Frank Buffay Jr, Estelle, et bien d’autres !
     </p>
   </section>
-
   <section id="saisons">
     <h2>Les Saisons - De 1994 à 2004</h2>
     <div id="saison1">
@@ -494,7 +726,6 @@
       <b>10 saisons, 236 épisodes, et des millions de fans à travers le monde.</b> Chaque saison a apporté son lot de rires, de surprises, et d’émotions. Les intrigues croisées, les gags récurrents et la complicité du casting ont rendu Friends intemporel.
     </p>
   </section>
-
   <section id="anecdotes">
     <h2>Anecdotes & Fun Facts</h2>
     <ul>
@@ -509,7 +740,6 @@
       <li><b>Spin-off :</b> Joey a eu sa propre série, sans rencontrer le même succès que Friends.</li>
     </ul>
   </section>
-
   <section id="impact">
     <h2>Impact et Héritage</h2>
     <p>
@@ -525,7 +755,6 @@
       <em>“I'll be there for you...”</em>
     </p>
   </section>
-
   <footer>
     &copy; 2025 - Page hommage à <b>Friends</b> | Par un(e) fan, pour les fans.<br>
     <span style="font-size:0.9em;">Images : Wikipedia | Série créée par David Crane & Marta Kauffman</span>
@@ -534,5 +763,52 @@
   "Friends" et tous les logos/images associés sont la propriété de Warner Bros. et NBC. Ce site n’est pas officiel et n’a aucun but commercial.
 </div>
   </footer>
+  <button id="scrollTopBtn" aria-label="Remonter en haut de la page">
+    <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><circle cx="14" cy="14" r="13" fill="none"/><path d="M8 17l6-6 6 6" stroke="#19547b" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </button>
+  <script>
+    // Hamburger menu script
+    const hamburger = document.querySelector('.hamburger');
+    const menu = document.getElementById('main-menu');
+    hamburger.addEventListener('click', function() {
+      this.classList.toggle('active');
+      menu.classList.toggle('open');
+      document.body.classList.toggle('nav-open');
+      this.setAttribute('aria-expanded', this.classList.contains('active') ? 'true' : 'false');
+    });
+    // Close menu on link click (mobile)
+    menu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', function() {
+        if(window.innerWidth < 900) {
+          hamburger.classList.remove('active');
+          menu.classList.remove('open');
+          document.body.classList.remove('nav-open');
+          hamburger.setAttribute('aria-expanded', 'false');
+        }
+      });
+    });
+    // Close menu on resize
+    window.addEventListener('resize', () => {
+      if(window.innerWidth >= 900) {
+        menu.classList.remove('open');
+        hamburger.classList.remove('active');
+        hamburger.setAttribute('aria-expanded', 'false');
+        document.body.classList.remove('nav-open');
+      }
+    });
+
+    // Flèche pour remonter
+    const scrollBtn = document.getElementById('scrollTopBtn');
+    window.addEventListener('scroll', function() {
+      if (window.scrollY > 350) {
+        scrollBtn.classList.add('visible');
+      } else {
+        scrollBtn.classList.remove('visible');
+      }
+    });
+    scrollBtn.addEventListener('click', function() {
+      window.scrollTo({top: 0, behavior: 'smooth'});
+    });
+  </script>
 </body>
 </html>
